@@ -37,9 +37,9 @@
         
         const setBackgroundColorById = (id, color) => document.getElementById(id).style = "background-color: " + color;
 
-        document.getElementById("aws").onmouseover = () => setBackgroundColorById("aws", document.getElementById("aaws").value);
+        // document.getElementById("aws").onmouseover = () => setBackgroundColorById("aws", document.getElementById("aaws").value);
         
-        const mouseOverFunction = id => el.style = "background-color: black";
+        mouseOverFunction = el => el.style = `background-color: ${document.getElementById("aaws").value}`;
         
     </script>
 </body>
