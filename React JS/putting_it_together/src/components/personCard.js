@@ -1,4 +1,12 @@
 import React, { Component } from 'react'
+import Button from 'react-bootstrap/Button';
+import 'bootstrap/dist/css/bootstrap.min.css';
+{/* <link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+  integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+  crossorigin="anonymous"
+/> */}
 
 class PersonCard extends Component {
     constructor(props) {
@@ -18,9 +26,7 @@ class PersonCard extends Component {
                 <h1>{fname}, {lname}</h1>
                 <p>- Age: {this.state.age}</p>
                 <p>- Hair Color: {color}</p>
-                <fieldset>
-                    <button onClick={ this.addYear }>Add</button>
-                </fieldset>
+                <Button onClick={ this.addYear }>Add</Button>{' '}
             </div>
         );
     }
