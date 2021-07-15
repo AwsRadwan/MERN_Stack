@@ -47,7 +47,7 @@ const UserForm = (props) => {
             <input type="submit" value="Create User" />
         </form>
         <br />
-            <h2>Your Form Date</h2>
+            <h2>Your Form Data</h2>
             <div className="info">
                 <section>
                     <ul>
