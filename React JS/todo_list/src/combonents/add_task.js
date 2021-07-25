@@ -12,7 +12,7 @@ const Add_Task = (props) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        props.addTask({text, q});
+        props.addNew({text, q});
         setText("");
         setQ(false);
     }

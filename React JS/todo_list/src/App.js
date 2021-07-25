@@ -9,19 +9,39 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 function App() {
 
   const [task, setTask] = useState([]);
-  const addTask = (q) => {
-    setTask([...task, q]);
+  const addTask = (aws) => {
+    setTask([...task, aws]);
   }
-  const changeState = (i, x) => {
-    if(x.q){
-      
+  const changeState = (index, item) => {
+    var arr = task;
+    let x = item;
+    if(item.q){
+      x.q = false;
+      arr[index] = x;
+      setTask([...arr]);
+      var element = document.getElementById(""+index);
+      element.className = "aaa";
     }
+    else{
+      x.q = true;
+      arr[index] = x;
+      setTask([...arr]);
+      var element = document.getElementById(""+index);
+      element.className = "www";
+    }
+    
+    
+  }
+
+  const delThis = (index) => {
+    const result = task.filter((e, x) => x !== index);
+    setTask(result);
   }
 
   return (
     <div className="App">
       <Add_Task addNew={addTask} />
-      <All_Tasks tasks={task} change={changeState} />
+      <All_Tasks tasks={task} change={changeState} deletethis={delThis} />
     </div>
   );
 }
