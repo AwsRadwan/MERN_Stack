@@ -10,7 +10,7 @@ const People = (props) => {
         axios.get(`https://swapi.dev/api/people/${props.id}`)
             .then(response=>{setP(response.data)})
             console.log(p)
-    }, []);
+    }, [props.id]);
 
 
 
@@ -21,8 +21,8 @@ const People = (props) => {
                 <ul>
                     <li>   height:{p.height} </li>
                     <li> mass:{p.mass} </li>
-                    <li> {p.hair_color} </li>
-                    <li> {p.skin_color} </li>
+                    <li> Hair Color: {p.hair_color} </li>
+                    <li> Skin Color: {p.skin_color} </li>
                 </ul>
             </article>
         </div>

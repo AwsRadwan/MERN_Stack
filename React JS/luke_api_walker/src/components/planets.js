@@ -18,10 +18,10 @@ const Planets = (props) => {
             <article>
                 <h3> {l.name} </h3>
                 <ul>
-                    <li> {l.climate} </li>
-                    <li> {l.terrain} </li>
-                    <li> {l.surface_water} </li>
-                    <li> {l.population} </li>
+                    <li>Climate: {l.climate} </li>
+                    <li>Terrain: {l.terrain} </li>
+                    <li>Surface Water: {l.surface_water} </li>
+                    <li>Population: {l.population} </li>
                 </ul>
             </article>
         </div>
