@@ -1,0 +1,21 @@
+{
+    "Company": {
+        "id": "8c1eee90-28f0-4309-aeb6-e8c2cd9b333f",
+        "name": "Hansen, Hane and Reinger",
+        "address": {
+            "street": "Dare Mountain",
+            "city": "Kendall",
+            "state": "Ohio",
+            "zipCode": "42700-5371",
+            "country": "Borders"
+        }
+    },
+    "User": {
+        "id": "4f490f5a-ead3-4453-b1e5-d7a76ee6792f",
+        "first_name": "Westley",
+        "last_name": "Kuhlman",
+        "phone_number": "382-529-1669 x13108",
+        "email": "Terrence_Buckridge37@hotmail.com",
+        "password": "KTefG4Xhx31MME5"
+    }
+}
