@@ -1,0 +1,337 @@
+Microsoft Windows [Version 10.0.19042.1052]
+(c) Microsoft Corporation. All rights reserved.
+
+C:\Program Files\MongoDB\Server\5.0\bin>./mongo
+'.' is not recognized as an internal or external command,
+operable program or batch file.
+
+C:\Program Files\MongoDB\Server\5.0\bin>.\mongo
+MongoDB shell version v5.0.1
+connecting to: mongodb://127.0.0.1:27017/?compressors=disabled&gssapiServiceName=mongodb
+Implicit session: session { "id" : UUID("7a7168d8-17a2-4aaa-a0e2-e6ad69e7f3f6") }
+MongoDB server version: 5.0.1
+================
+Warning: the "mongo" shell has been superseded by "mongosh",
+which delivers improved usability and compatibility.The "mongo" shell has been deprecated and will be removed in
+an upcoming release.
+We recommend you begin using "mongosh".
+For installation instructions, see
+https://docs.mongodb.com/mongodb-shell/install/
+================
+Welcome to the MongoDB shell.
+For interactive help, type "help".
+For more comprehensive documentation, see
+        https://docs.mongodb.com/
+Questions? Try the MongoDB Developer Community Forums
+        https://community.mongodb.com
+---
+The server generated these startup warnings when booting:
+        2021-07-28T10:51:19.026+03:00: Access control is not enabled for the database. Read and write access to data and configuration is unrestricted
+---
+---
+        Enable MongoDB's free cloud-based monitoring service, which will then receive and display
+        metrics about your deployment (disk utilization, CPU, operation statistics, etc).
+
+        The monitoring data will be available on a MongoDB website with a unique URL accessible to you
+        and anyone you share the URL with. MongoDB may use this information to make product
+        improvements and to suggest MongoDB products and deployment options to you.
+
+        To enable free monitoring, run the following command: db.enableFreeMonitoring()
+        To permanently disable this reminder, run the following command: db.disableFreeMonitoring()
+---
+> show dbs
+admin   0.000GB
+config  0.000GB
+local   0.000GB
+> use my_first_db
+switched to db my_first_db
+> db
+my_first_db
+> db.createCollection("students");
+{ "ok" : 1 }
+> show collections
+students
+> show collection
+uncaught exception: Error: don't know how to show [collection] :
+shellHelper.show@src/mongo/shell/utils.js:1209:11
+shellHelper@src/mongo/shell/utils.js:836:15
+@(shellhelp2):1:1
+> show collections
+students
+> db.students.insert({name: "Aws", home_state: "Tulkarm", lucky_number: 7, birthday: {month: 6, day: 23, year: 1998}});
+WriteResult({ "nInserted" : 1 })
+> db.students.find().pretty();
+{
+        "_id" : ObjectId("6101167ffc3a17ed088eb171"),
+        "name" : "Aws",
+        "home_state" : "Tulkarm",
+        "lucky_number" : 7,
+        "birthday" : {
+                "month" : 6,
+                "day" : 23,
+                "year" : 1998
+        }
+}
+> db.students.insert({name: "Ali", home_state: "Jenin", lucky_number: 3, birthday: {month: 9, day: 3, year: 1996}});
+WriteResult({ "nInserted" : 1 })
+> db.students.insert({name: "Mohammad", home_state: "Nablus", lucky_number: 37, birthday: {month: 12, day: 15, year: 2002}});
+WriteResult({ "nInserted" : 1 })
+> db.students.insert({name: "Saeed", home_state: "Ramallah", lucky_number: 1, birthday: {month: 4, day: 11, year: 2000}});
+WriteResult({ "nInserted" : 1 })
+> db.students.insert({name: "Zohde", home_state: "Hebron", lucky_number: 88, birthday: {month: 7, day: 21, year: 1989}});
+WriteResult({ "nInserted" : 1 })
+> db.students.find().pretty();
+{
+        "_id" : ObjectId("6101167ffc3a17ed088eb171"),
+        "name" : "Aws",
+        "home_state" : "Tulkarm",
+        "lucky_number" : 7,
+        "birthday" : {
+                "month" : 6,
+                "day" : 23,
+                "year" : 1998
+        }
+}
+{
+        "_id" : ObjectId("610116cdfc3a17ed088eb172"),
+        "name" : "Ali",
+        "home_state" : "Jenin",
+        "lucky_number" : 3,
+        "birthday" : {
+                "month" : 9,
+                "day" : 3,
+                "year" : 1996
+        }
+}
+{
+        "_id" : ObjectId("610116fdfc3a17ed088eb173"),
+        "name" : "Mohammad",
+        "home_state" : "Nablus",
+        "lucky_number" : 37,
+        "birthday" : {
+                "month" : 12,
+                "day" : 15,
+                "year" : 2002
+        }
+}
+{
+        "_id" : ObjectId("61011727fc3a17ed088eb174"),
+        "name" : "Saeed",
+        "home_state" : "Ramallah",
+        "lucky_number" : 1,
+        "birthday" : {
+                "month" : 4,
+                "day" : 11,
+                "year" : 2000
+        }
+}
+{
+        "_id" : ObjectId("6101175afc3a17ed088eb175"),
+        "name" : "Zohde",
+        "home_state" : "Hebron",
+        "lucky_number" : 88,
+        "birthday" : {
+                "month" : 7,
+                "day" : 21,
+                "year" : 1989
+        }
+}
+> db.students.find($or: {"home_state" : "Hebron"},{"home_state" : "Tulkarm"});
+uncaught exception: SyntaxError: missing ) after argument list :
+@(shell):1:20
+> db.students.find($or: ({"home_state" : "Hebron"},{"home_state" : "Tulkarm"}));
+uncaught exception: SyntaxError: missing ) after argument list :
+@(shell):1:20
+> db.students.find({"home_state" : "Hebron"});
+{ "_id" : ObjectId("6101175afc3a17ed088eb175"), "name" : "Zohde", "home_state" : "Hebron", "lucky_number" : 88, "birthday" : { "month" : 7, "day" : 21, "year" : 1989 } }
+> db.students.find({"home_state" : {"Tulkarm" or "Nablus"}});
+uncaught exception: SyntaxError: missing : after property id :
+@(shell):1:44
+> db.students.find({"home_state" : $or {"Tulkarm", "Nablus"}});
+uncaught exception: SyntaxError: missing } after property list :
+@(shell):1:37
+> db.students.find($or: [{"home_state" : "Hebron"},{"home_state" : "Tulkarm"}]);
+uncaught exception: SyntaxError: missing ) after argument list :
+@(shell):1:20
+> db.students.find($or: [{"home_state": "Hebron"},{"home_state": "Tulkarm"}]);
+uncaught exception: SyntaxError: missing ) after argument list :
+@(shell):1:20
+> db.students.find({$or: [{"home_state": "Hebron"},{"home_state": "Tulkarm"}]});
+{ "_id" : ObjectId("6101167ffc3a17ed088eb171"), "name" : "Aws", "home_state" : "Tulkarm", "lucky_number" : 7, "birthday" : { "month" : 6, "day" : 23, "year" : 1998 } }
+{ "_id" : ObjectId("6101175afc3a17ed088eb175"), "name" : "Zohde", "home_state" : "Hebron", "lucky_number" : 88, "birthday" : { "month" : 7, "day" : 21, "year" : 1989 } }
+> db.students.find({$or: [{"home_state": "Hebron"},{"home_state": "Tulkarm"}]}).pretty();
+{
+        "_id" : ObjectId("6101167ffc3a17ed088eb171"),
+        "name" : "Aws",
+        "home_state" : "Tulkarm",
+        "lucky_number" : 7,
+        "birthday" : {
+                "month" : 6,
+                "day" : 23,
+                "year" : 1998
+        }
+}
+{
+        "_id" : ObjectId("6101175afc3a17ed088eb175"),
+        "name" : "Zohde",
+        "home_state" : "Hebron",
+        "lucky_number" : 88,
+        "birthday" : {
+                "month" : 7,
+                "day" : 21,
+                "year" : 1989
+        }
+}
+> db.students.find({$or: [{"home_state": "Hebron"},{"home_state": "Tulkarm"}]}).pretty();
+{
+        "_id" : ObjectId("6101167ffc3a17ed088eb171"),
+        "name" : "Aws",
+        "home_state" : "Tulkarm",
+        "lucky_number" : 7,
+        "birthday" : {
+                "month" : 6,
+                "day" : 23,
+                "year" : 1998
+        }
+}
+{
+        "_id" : ObjectId("6101175afc3a17ed088eb175"),
+        "name" : "Zohde",
+        "home_state" : "Hebron",
+        "lucky_number" : 88,
+        "birthday" : {
+                "month" : 7,
+                "day" : 21,
+                "year" : 1989
+        }
+}
+> db.students.find({lucky_number: {$gt: 3}});
+{ "_id" : ObjectId("6101167ffc3a17ed088eb171"), "name" : "Aws", "home_state" : "Tulkarm", "lucky_number" : 7, "birthday" : { "month" : 6, "day" : 23, "year" : 1998 } }
+{ "_id" : ObjectId("610116fdfc3a17ed088eb173"), "name" : "Mohammad", "home_state" : "Nablus", "lucky_number" : 37, "birthday" : { "month" : 12, "day" : 15, "year" : 2002 } }
+{ "_id" : ObjectId("6101175afc3a17ed088eb175"), "name" : "Zohde", "home_state" : "Hebron", "lucky_number" : 88, "birthday" : { "month" : 7, "day" : 21, "year" : 1989 } }
+> db.students.find({lucky_number: {$gt: 3}}).pretty();
+{
+        "_id" : ObjectId("6101167ffc3a17ed088eb171"),
+        "name" : "Aws",
+        "home_state" : "Tulkarm",
+        "lucky_number" : 7,
+        "birthday" : {
+                "month" : 6,
+                "day" : 23,
+                "year" : 1998
+        }
+}
+{
+        "_id" : ObjectId("610116fdfc3a17ed088eb173"),
+        "name" : "Mohammad",
+        "home_state" : "Nablus",
+        "lucky_number" : 37,
+        "birthday" : {
+                "month" : 12,
+                "day" : 15,
+                "year" : 2002
+        }
+}
+{
+        "_id" : ObjectId("6101175afc3a17ed088eb175"),
+        "name" : "Zohde",
+        "home_state" : "Hebron",
+        "lucky_number" : 88,
+        "birthday" : {
+                "month" : 7,
+                "day" : 21,
+                "year" : 1989
+        }
+}
+> db.students.find({lucky_number: {$gt: 10}}).pretty();
+{
+        "_id" : ObjectId("610116fdfc3a17ed088eb173"),
+        "name" : "Mohammad",
+        "home_state" : "Nablus",
+        "lucky_number" : 37,
+        "birthday" : {
+                "month" : 12,
+                "day" : 15,
+                "year" : 2002
+        }
+}
+{
+        "_id" : ObjectId("6101175afc3a17ed088eb175"),
+        "name" : "Zohde",
+        "home_state" : "Hebron",
+        "lucky_number" : 88,
+        "birthday" : {
+                "month" : 7,
+                "day" : 21,
+                "year" : 1989
+        }
+}
+> db.students.find({lucky_number: {$lte: 7}}).pretty();
+{
+        "_id" : ObjectId("6101167ffc3a17ed088eb171"),
+        "name" : "Aws",
+        "home_state" : "Tulkarm",
+        "lucky_number" : 7,
+        "birthday" : {
+                "month" : 6,
+                "day" : 23,
+                "year" : 1998
+        }
+}
+{
+        "_id" : ObjectId("610116cdfc3a17ed088eb172"),
+        "name" : "Ali",
+        "home_state" : "Jenin",
+        "lucky_number" : 3,
+        "birthday" : {
+                "month" : 9,
+                "day" : 3,
+                "year" : 1996
+        }
+}
+{
+        "_id" : ObjectId("61011727fc3a17ed088eb174"),
+        "name" : "Saeed",
+        "home_state" : "Ramallah",
+        "lucky_number" : 1,
+        "birthday" : {
+                "month" : 4,
+                "day" : 11,
+                "year" : 2000
+        }
+}
+> db.students.find({$and: [{lucky_number: {$lte: 9}}, {lucky_number: {$gte: 1}}]}).pretty();
+{
+        "_id" : ObjectId("6101167ffc3a17ed088eb171"),
+        "name" : "Aws",
+        "home_state" : "Tulkarm",
+        "lucky_number" : 7,
+        "birthday" : {
+                "month" : 6,
+                "day" : 23,
+                "year" : 1998
+        }
+}
+{
+        "_id" : ObjectId("610116cdfc3a17ed088eb172"),
+        "name" : "Ali",
+        "home_state" : "Jenin",
+        "lucky_number" : 3,
+        "birthday" : {
+                "month" : 9,
+                "day" : 3,
+                "year" : 1996
+        }
+}
+{
+        "_id" : ObjectId("61011727fc3a17ed088eb174"),
+        "name" : "Saeed",
+        "home_state" : "Ramallah",
+        "lucky_number" : 1,
+        "birthday" : {
+                "month" : 4,
+                "day" : 11,
+                "year" : 2000
+        }
+}
+>
