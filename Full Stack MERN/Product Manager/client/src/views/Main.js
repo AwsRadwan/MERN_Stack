@@ -27,10 +27,10 @@ const Main = () => {
 
     return (
         <div>
-            <Router>
-                <ProductForm path="/"/>
-                <DisplayProducts path="/all_products" />
-            </Router>
+            {/* <Router> */}
+                <ProductForm />
+                <DisplayProducts />
+            {/* </Router> */}
         </div>
     )
 }

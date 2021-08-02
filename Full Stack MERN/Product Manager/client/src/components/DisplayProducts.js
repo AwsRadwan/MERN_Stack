@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link } from '@reach/router';
+import { Router } from '@reach/router';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { navigate } from '@reach/router';
+
 
 const DisplayProducts = (props) => {
 
@@ -48,6 +51,9 @@ const DisplayProducts = (props) => {
         .catch(err => console.log("-E- " + err))
         
     }
+    const updateThis = (id) => {
+        navigate("/update/"+id);
+    }
         
     return (
         <div>
@@ -58,19 +64,20 @@ const DisplayProducts = (props) => {
                     <th scope="col">Title</th>
                     <th scope="col">Price</th>
                     <th scope="col">Description</th>
-                    <th scope="col">Delete</th>
+                    <th scope="col">Actions</th>
                     </tr>
                 </thead>
                 <tbody>
                 {
                     products ? products.map( (item) => {
+                        let x = "/" + item._id;
                         return (
                         <tr key={item._id}>
                             <th scope="row">{item._id}</th>
-                            <td id={item._id} className="aaa">{item.title}</td>
+                            <td id={item._id} className="aaa"> <Link to={x}> {item.title} </Link> </td>
                             <td id="zzz">{item.price}</td>
                             <td> {item.description} </td>
-                            <td> <button type="button" class="btn btn-danger" onClick={e => {deleteProduct(item._id)}}>Delete</button> </td>
+                            <td> <button type="button" class="btn btn-danger" onClick={e => {deleteProduct(item._id)}}>Delete</button> <button type="button" class="btn btn-warning" onClick={e => {updateThis(item._id)}}>Update</button> </td>
                         </tr>
                         )
                     }
@@ -81,7 +88,7 @@ const DisplayProducts = (props) => {
                 </tbody>
             </table>
             <br />
-            <Link to="/">Add New Product ...</Link>
+            {/* <Link to="/">Add New Product ...</Link> */}
         </div>
     )
 }

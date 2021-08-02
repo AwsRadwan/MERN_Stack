@@ -1,54 +1,17 @@
-import React, { useState, useEffect } from 'react';
+import React, {useState, useEffect} from 'react'
 import axios from 'axios';
-import { Router } from '@reach/router';
-import { Link } from '@reach/router';
-import { navigate } from '@reach/router';
+import Show_This from '../components/Show_This';
 
-const ProductForm = (props) => {
-
+const Update = (props) => {
 
     const [title, setTitle] = useState(""); 
-    const [price, setPrice] = useState(1);
+    const [price, setPrice] = useState(0);
     const [description, setDescription] = useState("");
+    const [product, setProduct] = useState({});
 
     const [titleError, setTitleError] = useState(""); 
     const [priceError, setPriceError] = useState("");
     const [descriptionError, setDescriptionError] = useState("");
-    // const [products, setProducts] = useState([]);
-
-    // useEffect(
-    //     () => {
-    //         axios.get("http://localhost:8000/api/products")
-    //         .then(res => {
-    //             setProducts(res.data.products);
-    //         })
-    //     }, [products]
-    // );
-
-    const onSubmitHandler = e => {
-        //prevent default behavior of the submit
-        e.preventDefault();
-        //make a post request to create a new person
-        if(titleError.length <=1 && priceError.length <=1 && descriptionError.length <=1){
-            axios.post('http://localhost:8000/api/products/new', {
-            title,
-            price,
-            description
-            })
-            .then(res=>{
-                console.log(res);
-                setTitle("");
-                setPrice(0);
-                setDescription("");
-                
-            })
-            .catch(err=>console.log(err))
-            navigate("/all_products");
-        }
-        else {
-            console.log("!!!")
-        }
-    }
 
     const validateTitle = (value) => {
         setTitle(value);
@@ -98,12 +61,43 @@ const ProductForm = (props) => {
         }
     }
 
+    useEffect(
+        () => {
+            axios.get("http://localhost:8000/api/products/" + props.id)
+            .then(res => {
+                setProduct(res.data.Product);
+                setTitle(res.data.Product.title);
+                setPrice(res.data.Product.price);
+                setDescription(res.data.Product.description);
+                // setStatus(true);
+                console.log(res.data.Product.title)
+            })
+        }, []
+    );
+
+    const onSubmitHandler = e => {
+        e.preventDefault();
+        axios.put('http://localhost:8000/api/products/update/' + props.id, {
+            title,
+            price,
+            description
+        })
+        .then(res=>{
+            console.log(res);
+            // setTitle(product.title);
+            // setPrice(product.price);
+            // setDescription(product.description);
+            
+        });
+        console.log("hhahahahha")
+    }
+
     return (
         <div>
             <form onSubmit={onSubmitHandler}>
                 <p>
                     <label>Title</label><br/>
-                    <input type="text" onChange={(e)=>validateTitle(e.target.value)}/>
+                    <input type="text" onChange={(e)=>validateTitle(e.target.value)} value={title} />
                 </p>
                 {
                     titleError && 
@@ -111,7 +105,7 @@ const ProductForm = (props) => {
                 }
                 <p>
                     <label>Price</label><br/>
-                    <input type="number" onChange={(e)=>validatePrice(e.target.value)}/>
+                    <input type="number" onChange={(e)=>validatePrice(e.target.value)} value={price} />
                 </p>
                 {
                     priceError && 
@@ -119,7 +113,7 @@ const ProductForm = (props) => {
                 }
                 <p>
                     <label>Description</label><br/>
-                    <input type="text" onChange={(e)=>validateDecription(e.target.value)}/>
+                    <input type="text" onChange={(e)=>validateDecription(e.target.value)} value={description} />
                 </p>
                 {
                     descriptionError && 
@@ -127,8 +121,10 @@ const ProductForm = (props) => {
                 }
                 <input type="submit"/>
             </form>
+            <br /><br />
+            <Show_This id={props.id} />
         </div>
     )
 }
 
-export default ProductForm
+export default Update
