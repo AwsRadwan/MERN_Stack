@@ -1,0 +1,1 @@
+https://openbase.com/js/node-mongoose-validator/documentation

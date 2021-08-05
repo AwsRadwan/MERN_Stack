@@ -1,0 +1,59 @@
+MERN PROJECT(Assuming our project is named products):
+
+-mkdir products
+-cd products
+-npm init -y  (important before npm install)
+-npm install express mongoose cors
+-copy nul server.js(or create a file named server.js)  inside the project folder  (for MAC: touch server.js)
+-Let's create our project structure by making a folder called "server" and then create four more folders inside that folder called "config", "controllers", "models" and "routes". 
+-Inside the folders,create the files as in the following example---so that we have the following structure for Backend:
+         -products
+		 -Server
+			-controllers => product.controller.js  
+			-routes      => product.routes.js        
+			-config      => mongoose.config.js
+			-models      => product.model.js
+                -server.js   =>
+
+    ** Note: You may have more than one file inside models,controllers,...  if needed.
+    ** Note2: Continue reading below to know what to change inside these files.
+
+-npx create-react-app client  
+-cd client
+-npm install axios @reach/router @material-ui/core 
+-create Main.js file like this: client/src/Main.js  and the other components (List/Detail/Form...)
+
+The project structure is ready without files content  (Just ADD content after now)
+Note that after creating the react app(client) the final folder structure is:
+         -products
+		 -Server
+			-controllers => product.controller.js  
+			-routes      => product.routes.js        
+			-config      => mongoose.config.js
+			-models      => product.model.js
+                -server.js   =>
+		-client
+
+
+//////////////////////////////////////////FRONT END/////////////////////////////////////////
+-Now change the files content and add files(components) as necessary in the front END.
+////////////////////////////////////////////////////////////////////////////////////////////
+
+
+////////////////////////////////////////////BACK END////////////////////////////////////////
+Common changes:
+in mongoose.config.js >> change the DB name 
+Models >>in product.model.js  change schema-name   && table fields/Attributes  //also the schema name in export
+controllers >>in product.controller.js change methods as needed
+routes>>in product.routes.js update the require statement && the urls and their corresponding methods' names in the controller
+server.js=> change the require statement
+Note: DO any other modification required if needed
+////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+
+////////////////////////////////////////////Run BOTH the FE/BE servers//////////////////////
+For Backend-go to the project directory(cd products):     nodemon server.js 
+For FE:    -the front end directory(cd client):    	  npm run start
+////////////////////////////////////////////////////////////////////////////////////////////
