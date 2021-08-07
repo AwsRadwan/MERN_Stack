@@ -6,6 +6,7 @@ import Typography from '@material-ui/core/Typography';
 import { Link } from '@reach/router';
 
 
+
 const useStyles = makeStyles((theme) => ({
     root: {
         flexGrow: 1,
@@ -41,6 +42,7 @@ const Header = (props) => {
             }
         }, []
     )
+    
 
     const classes = useStyles();
     return (
